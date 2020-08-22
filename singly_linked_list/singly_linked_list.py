@@ -71,8 +71,8 @@ class LinkedList:
             self.head = None
             self.length -= 1
             return current_tail.value
-        # General case:
-        # Start at head and iterate to the next-to-last node
+        # # General case:
+        # # Start at head and iterate to the next-to-last node
         else:
             current_node = self.head
             while current_node.next != self.tail:

@@ -42,11 +42,12 @@ class DoublyLinkedList:
             self.tail = newNode
             self.length += 1
         else:
-            newNode == ListNode(value)
+            newNode = ListNode(value)
             self.head.prev = newNode
             newNode.next = self.head
             newNode.prev = None
             newNode.value = value
+            self.head = newNode
             self.length += 1
 
     """
@@ -92,6 +93,7 @@ class DoublyLinkedList:
             old_tail.next = newNode
             newNode.prev = old_tail
             newNode.next = None
+            self.tail = newNode
             self.length += 1
 
     """
@@ -104,10 +106,11 @@ class DoublyLinkedList:
         if self.length == 0:
             return None
         if self.length == 1:
-            old_value = self.head.value
+            old_value = self.tail.value
             self.tail = None
             self.head = None
             self.length -= 1
+            return old_value
         else:
             old_value = self.tail.value
             old_tail = self.tail
@@ -123,7 +126,8 @@ class DoublyLinkedList:
     """
 
     def move_to_front(self, node):
-        pass
+        self.delete(node)
+        self.add_to_head(node.value)
 
     """
     Removes the input node from its current spot in the 
@@ -131,24 +135,39 @@ class DoublyLinkedList:
     """
 
     def move_to_end(self, node):
-        pass
+        self.delete(node)
+        self.add_to_tail(node.value)
 
     """
     Deletes the input node from the List, preserving the 
     order of the other elements of the List.
     """
 
-    def delete(self, node):
-        pass
+    def delete(self, node: ListNode):
         # Check for empty pointers
         # Get previous node = node.prev
+        previous_node = node.prev
         # Set prev_node.next to node.next
+        if previous_node is None:
+            # could just call self.remove_from_head()
+            self.head = node.next
+        else:
+            previous_node.next = node.next
         # Next_node = node.next
+        next_node = node.next
         # Set next_node.previous = previous_node
+        if next_node is None:
+            self.tail = node.prev
+        else:
+            next_node.prev = previous_node
         # Decrement length
+        self.length -= 1
         # Set node.prev = None
+        node.prev = None
         # Set node.next = None
+        node.next = None
         # Return node.value
+        return node.value
 
     """
     Finds and returns the maximum value of all the nodes 

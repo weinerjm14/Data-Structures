@@ -111,14 +111,12 @@ class BSTNode:
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self):
         # current_node = self
-        # if current_node.left:
-        #     current_node = current_node.left
-        #     current_node.in_order_print()
-        # print(current_node.value)
-        # if current_node.right:
-        #     current_node = current_node.right
-        #     current_node.in_order_print()
-        pass
+
+        if self.left:
+            self.left.in_order_print()
+        print(self.value)
+        if self.right:
+            self.right.in_order_print()
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
@@ -129,25 +127,26 @@ class BSTNode:
 
         while queue.size > 0:
             current_node = queue.dequeue()
+
             if current_node.left:
                 queue.enqueue(current_node.left)
             if current_node.right:
                 queue.enqueue(current_node.right)
-            return current_node.value
+            print(current_node.value)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
-        queue = Queue()
-        queue.enqueue(self)
-        while queue.size > 0:
-            current_node = queue.dequeue()
+        stack = Stack()
+        current_node = stack.push(self)
+        while stack.size > 0:
+            current_node = stack.pop()
 
             if current_node.left:
-                queue.enqueue(current_node.left)
+                stack.push(current_node.left)
             if current_node.right:
-                queue.enqueue(current_node.right)
-            return current_node.value
+                stack.push(current_node.right)
+            print(current_node.value)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
